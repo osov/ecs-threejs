@@ -1,0 +1,17 @@
+{
+  "name": "ecs-threejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.136.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.135.0"
+  }
+}
