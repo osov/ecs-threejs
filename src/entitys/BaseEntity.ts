@@ -10,17 +10,6 @@ export class BaseEntity extends Object3D{
 		super();
 	}
 
-	addComponent(cmp:BaseComponent)
-	{
-		cmp.onAdded(this);
-		this.components.push(cmp);
-	}
-
-	doUpdate(deltaTime:number)
-	{
-
-	}
-
 	addToParent(parent:Object3D)
 	{
 		parent.add(this);
@@ -30,7 +19,6 @@ export class BaseEntity extends Object3D{
 	{
 		return super.removeFromParent();
 	}
-
 
 	setPosition(pos:Vector2|Vector3)
 	{
@@ -69,5 +57,26 @@ export class BaseEntity extends Object3D{
 	{
 		this.renderOrder = index;
 	}
+
+	addComponent(cmp:BaseComponent)
+	{
+		cmp.onAdded(this);
+		this.components.push(cmp);
+	}
+
+	private updateComponents(deltaTime:number)
+	{
+		for (var i = 0; i < this.components.length; ++i)
+		{
+			var cmp = this.components[i];
+			cmp.doUpdate(deltaTime);
+		}
+	}
+
+	doUpdate(deltaTime:number)
+	{
+		this.updateComponents(deltaTime);
+	}
+
 
 }
