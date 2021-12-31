@@ -14,7 +14,7 @@ export class TimePool<T> extends BasePool<ItPool> {
 		this.delayTime = delayTime;
 	}
 
-	now()
+	protected now()
 	{
 		return Date.now();
 	}
@@ -23,7 +23,7 @@ export class TimePool<T> extends BasePool<ItPool> {
 	{
 		if (this.freeList.length == 0)
 		{
-			this.addNew();
+			this.addNew(true);
 			(this.freeList[0] as ItDataEx<ItPool>).freeTime = 0;
 		}
 		const now = this.now();
@@ -36,8 +36,7 @@ export class TimePool<T> extends BasePool<ItPool> {
 				return it.entity;
 			}
 		}
-		console.error("Не найдена сущность для выдачи !");
-		return this.addNew();
+		return this.addNew(false);
 	}
 
 	put(e:ItPool, checkFree = true)

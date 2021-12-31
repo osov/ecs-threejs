@@ -2,6 +2,8 @@ import {BaseEntity} from './entitys/BaseEntity';
 import {BaseComponent} from './components/BaseComponent';
 import {BaseSystem} from './systems/BaseSystem';
 import {BasePool} from './pools/BasePool';
+import {NumberPool} from './pools/NumberPool';
+import {TimePool} from './pools/TimePool';
 
 
-export {BaseEntity, BaseComponent, BaseSystem, BasePool};
+export {BaseEntity, BaseComponent, BaseSystem, BasePool, NumberPool, TimePool};

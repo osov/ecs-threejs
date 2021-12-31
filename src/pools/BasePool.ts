@@ -15,20 +15,21 @@ export class BasePool<T extends ItPool>{
 	{
 		this.source = src;
 		for (var i = 0; i < startCount; ++i)
-			this.addNew();
+			this.addNew(true);
 	}
 
-	protected addNew()
+	protected addNew(toPool:boolean)
 	{
 		var copy = this.source.makeInstance();
-		this.put(copy as T, false);
+		if (toPool)
+			this.put(copy as T, false);
 		return copy;
 	}
 
 	get()
 	{
 		if (this.freeList.length == 0)
-			this.addNew();
+			this.addNew(true);
 		var tmp = this.freeList.splice(0,1);
 		var item = tmp[0];
 		return item.entity;
@@ -53,7 +54,7 @@ export class BasePool<T extends ItPool>{
 			return false;
 		}
 		var data = {entity:e};
-		this.freeList.push();
+		this.freeList.push(data);
 		return data;
 	}
 
