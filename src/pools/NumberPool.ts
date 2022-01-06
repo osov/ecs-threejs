@@ -6,7 +6,7 @@ interface NumData{
 export class NumberPool{
 
 	private maxVal:number;
-	private lastId:number;
+	private lastId:number = 0;
 	private freeList:NumData[] = [];
 
 	constructor(maxVal:number)
@@ -45,9 +45,9 @@ export class NumberPool{
 		return this.addNew();
 	}
 
-	put(id:number, timeLock:number = 0)
+	put(id:number, timeLockMs:number = 0)
 	{
-		var data = {id:id, freeTime:this.now() + timeLock * 1000};
+		var data = {id:id, freeTime:this.now() + timeLockMs};
 		for (var i = 0; i < this.freeList.length; ++i)
 		{
 			var it = this.freeList[i];

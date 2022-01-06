@@ -12,6 +12,7 @@ export class BaseEntity extends Object3D{
 	protected components:BaseComponent[] = [];
 	protected velocity:Vector2 = new Vector2();
 	public idEntity:number = -1;
+	public addTime:number;
 
 	constructor()
 	{
