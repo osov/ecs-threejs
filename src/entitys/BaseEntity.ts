@@ -9,7 +9,7 @@ export interface WorldConfig{
 export class BaseEntity extends Object3D{
 
 	protected config:WorldConfig;
-	protected components:BaseComponent[] = [];
+	protected components:{[k:string]:BaseComponent} = {};
 	protected velocity:Vector2 = new Vector2();
 	public idEntity:number = -1;
 	public addTime:number;
@@ -19,7 +19,6 @@ export class BaseEntity extends Object3D{
 		super();
 		this.doReset();
 	}
-
 
 	onAdd(config:WorldConfig)
 	{
@@ -36,7 +35,7 @@ export class BaseEntity extends Object3D{
 		this.idEntity = -1;
 		this.position.set(0,0,0);
 		this.velocity.set(0,0);
-		this.components = [];
+		this.components = {};
 	}
 
 	addToParent(parent:Object3D)
@@ -117,17 +116,26 @@ export class BaseEntity extends Object3D{
 		this.renderOrder = index;
 	}
 
-	addComponent(cmp:BaseComponent)
+	addComponent(cmp:BaseComponent, name:string = '')
 	{
+		if (name == '')
+			name = cmp.constructor.name;
+		if (this.components[name] !== undefined)
+			console.warn("Компонент с таким имененем существует:", name, cmp);
 		cmp.onAdded(this);
-		this.components.push(cmp);
+		this.components[name] = cmp;
+	}
+
+	getComponent(name:string)
+	{
+		return this.components[name];
 	}
 
 	private updateComponents(deltaTime:number)
 	{
-		for (var i = 0; i < this.components.length; ++i)
+		for (var name in this.components)
 		{
-			var cmp = this.components[i];
+			var cmp = this.components[name];
 			cmp.doUpdate(deltaTime);
 		}
 	}
