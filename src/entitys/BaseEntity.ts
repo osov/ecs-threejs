@@ -1,36 +1,41 @@
 import {Vector2, Vector3, Object3D} from 'three';
 import {BaseComponent} from '../components/BaseComponent';
 
-export interface WorldConfig{
+export interface WrapConfig{
 	worldWrap:boolean;
 	worldSize:Vector2;
 }
 
 export class BaseEntity extends Object3D{
 
-	protected config:WorldConfig;
+	public wrapConfig:WrapConfig;
 	protected components:{[k:string]:BaseComponent} = {};
 	protected velocity:Vector2 = new Vector2();
 	public idEntity:number = -1;
-	public addTime:number;
+	public addTime:number = -1;
 
 	constructor()
 	{
 		super();
-		this.doReset();
 	}
 
-	onAdd(config:WorldConfig)
+	onAdd(wrapConfig:WrapConfig)
 	{
-		this.config = config;
+		this.wrapConfig = wrapConfig;
+		this.addTime = Date.now();
+	}
+
+	onAdded()
+	{
+
 	}
 
 	onRemove()
 	{
-
+		this.doReset();
 	}
 
-	doReset()
+	protected doReset()
 	{
 		this.idEntity = -1;
 		this.position.set(0,0,0);
@@ -122,7 +127,7 @@ export class BaseEntity extends Object3D{
 			name = cmp.constructor.name;
 		if (this.components[name] !== undefined)
 			console.warn("Компонент с таким имененем существует:", name, cmp);
-		cmp.onAdded(this);
+		cmp.onAddedComponent(this);
 		this.components[name] = cmp;
 	}
 

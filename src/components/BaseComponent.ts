@@ -10,12 +10,12 @@ export class BaseComponent extends EventDispatcher{
 		super();
 	}
 
-	onAdded(entity:BaseEntity)
+	onAddedComponent(entity:BaseEntity)
 	{
 		this.entity = entity;
 	}
 
-	onRemoved()
+	onRemoveComponent()
 	{
 
 	}
