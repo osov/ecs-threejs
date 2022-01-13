@@ -33,13 +33,13 @@ export class TimePool<T> extends BasePool<ItPool> {
 			if (it.freeTime <= now)
 			{
 				this.freeList.splice(i,1);
-				return it.entity;
+				return it.element;
 			}
 		}
 		return this.addNew(false);
 	}
 
-	put(e:ItPool, checkFree = true)
+	put(e:ItPool, checkFree:boolean = true)
 	{
 		var result = super.put(e, checkFree);
 		if (!result)

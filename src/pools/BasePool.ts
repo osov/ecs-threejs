@@ -3,7 +3,7 @@ export interface ItPool{
 }
 
 export interface ItData<T>{
-	entity:T;
+	element:T;
 }
 
 export class BasePool<T extends ItPool>{
@@ -32,7 +32,7 @@ export class BasePool<T extends ItPool>{
 			this.addNew(true);
 		var tmp = this.freeList.splice(0,1);
 		var item = tmp[0];
-		return item.entity;
+		return item.element;
 	}
 
 	protected checkExists(e:T)
@@ -40,20 +40,20 @@ export class BasePool<T extends ItPool>{
 		for (var i = 0; i < this.freeList.length; ++i)
 		{
 			var it = this.freeList[i];
-			if (it.entity == e)
+			if (it.element == e)
 				return true;
 		}
 		return false;
 	}
 
-	put(e:T, checkFree = true)
+	put(e:T, checkFree:boolean = true)
 	{
 		if (checkFree && this.checkExists(e))
 		{
 			console.warn("Объект уже в списке", e);
 			return false;
 		}
-		var data = {entity:e};
+		var data = {element:e};
 		this.freeList.push(data);
 		return data;
 	}
