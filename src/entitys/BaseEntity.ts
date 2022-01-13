@@ -55,7 +55,7 @@ export class BaseEntity extends Object3D{
 
 	setPosition(pos:Vector2|Vector3)
 	{
-		if (pos instanceof Vector2)
+		if ('isVector2' in pos)
 			this.position.set(pos.x, pos.y, this.position.z);
 		else
 			this.position.copy(pos);
@@ -64,6 +64,11 @@ export class BaseEntity extends Object3D{
 	setPositionXY(x:number,y:number)
 	{
 		this.position.set(x, y, this.position.z);
+	}
+
+	setPositionZ(z:number)
+	{
+		this.position.z = z;
 	}
 
 	getPosition()
@@ -148,6 +153,11 @@ export class BaseEntity extends Object3D{
 	doUpdate(deltaTime:number)
 	{
 		this.updateComponents(deltaTime);
+	}
+
+	destroy()
+	{
+
 	}
 
 
