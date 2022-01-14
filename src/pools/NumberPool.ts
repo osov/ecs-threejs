@@ -22,9 +22,12 @@ export class NumberPool{
 	private addNew()
 	{
 		if (this.lastId + 1 > this.maxVal )
+		{
 			console.warn("Выход за границу", this.maxVal);
-		this.lastId += 1;
-		this.lastId = this.lastId % this.maxVal;
+			this.lastId = (this.lastId + 1) % this.maxVal;
+		}
+		else
+			this.lastId += 1;
 		return this.lastId;
 	}
 
