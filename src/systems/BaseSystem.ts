@@ -1,6 +1,6 @@
 import {EventDispatcher} from 'three';
 import {getTime} from '../core/utils';
-import * as fs from 'fs';
+import {existsSync,mkdirSync,appendFileSync} from 'fs';
 
 export class BaseSystem extends EventDispatcher{
 
@@ -81,10 +81,10 @@ export class BaseSystem extends EventDispatcher{
 			for (var i = 0; i < args.length; i++)
 				s += (typeof args[i] === 'object' ? JSON.stringify(args[i]) : args[i]) + ' ';
 			var message = s.split("\n").join('-rn-') + "\r\n";
-			if (!fs.existsSync('./logs/'))
-				 fs.mkdirSync('./logs/');
-			fs.appendFileSync('./logs/'+this.getLogName(type, this.add_log_par), message, 'utf-8');
-			fs.appendFileSync('./logs/'+this.getLogName('all', this.add_log_par), type+'-'+message, 'utf-8');
+			if (!existsSync('./logs/'))
+				 mkdirSync('./logs/');
+			appendFileSync('./logs/'+this.getLogName(type, this.add_log_par), message, 'utf-8');
+			appendFileSync('./logs/'+this.getLogName('all', this.add_log_par), type+'-'+message, 'utf-8');
 		}
 	}
 
