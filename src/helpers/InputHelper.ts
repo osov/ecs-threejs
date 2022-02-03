@@ -18,6 +18,7 @@ export interface TouchData {
 export interface PointerEventData{
     button:number;
     position:Vector2;
+    pointerId: number;
 }
 
 export interface IPointerDownHandler {
@@ -73,7 +74,7 @@ export class Input {
             position: new Vector2(event.offsetX, event.offsetY)
         };
         this.setPointers(event.offsetX, event.offsetY);
-        EventBus.dispatchEvent<PointerEventData>('onPointerDown', { button: event.button, position: this._mousePos.clone() });
+        EventBus.dispatchEvent<PointerEventData>('onPointerDown', { button: event.button, position: this._mousePos.clone(), pointerId: event.pointerId });
     }
 
     private onPointerMove(event: PointerEvent) {
@@ -86,20 +87,20 @@ export class Input {
         this._touches[event.pointerId].phase = TouchPhase.Moved;
         this._touches[event.pointerId].position.set(event.offsetX, event.offsetY);
         this.setPointers(event.offsetX, event.offsetY);
-        EventBus.dispatchEvent<PointerEventData>('onPointerMove', { button: event.button, position: this._mousePos.clone() });
+        EventBus.dispatchEvent<PointerEventData>('onPointerMove', { button: event.button, position: this._mousePos.clone(), pointerId: event.pointerId });
     }
 
     private onPointerUp(event: PointerEvent) {
         this._touches[event.pointerId].phase = TouchPhase.Ended;
         delete this._touches[event.pointerId];
         this.setPointers(event.offsetX, event.offsetY);
-        EventBus.dispatchEvent<PointerEventData>('onPointerUp', { button: event.button, position: this._mousePos.clone() });
+        EventBus.dispatchEvent<PointerEventData>('onPointerUp', { button: event.button, position: this._mousePos.clone(), pointerId: event.pointerId });
     }
 
     private onPointerCancel(event: PointerEvent) {
         this._touches[event.pointerId].phase = TouchPhase.Canceled;
         this.setPointers(event.offsetX, event.offsetY);
-        EventBus.dispatchEvent<PointerEventData>('onPointerCancel', { button: event.button, position: this._mousePos.clone() });
+        EventBus.dispatchEvent<PointerEventData>('onPointerCancel', { button: event.button, position: this._mousePos.clone(), pointerId: event.pointerId });
         delete this._touches[event.pointerId];
     }
 

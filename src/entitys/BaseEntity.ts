@@ -1,5 +1,5 @@
 import {Vector2, Vector3, Object3D} from 'three';
-import {BaseComponent} from '../components/BaseComponent';
+import {MonoBehaviour} from '../components/MonoBehaviour';
 
 export interface WrapConfig{
 	worldWrap:boolean;
@@ -9,7 +9,7 @@ export interface WrapConfig{
 export class BaseEntity extends Object3D{
 
 	public wrapConfig:WrapConfig;
-	protected components:{[k:string]:BaseComponent} = {};
+	protected components:{[k:string]:MonoBehaviour} = {};
 	protected velocity:Vector2 = new Vector2();
 	public idEntity:number = -1;
 	public addTime:number = -1;
@@ -126,7 +126,7 @@ export class BaseEntity extends Object3D{
 		this.renderOrder = index;
 	}
 
-	addComponent(cmp:BaseComponent, name:string = '')
+	addComponent(cmp:MonoBehaviour, name:string = '')
 	{
 		if (name == '')
 			name = cmp.constructor.name;

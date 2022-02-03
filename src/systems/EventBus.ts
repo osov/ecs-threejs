@@ -94,8 +94,7 @@ export class EventBus {
                         console.warn('Событие не найдено:', event);
                     else {
                         let eventName = eventList[event];
-                        let methodName = eventName.charAt(0).toUpperCase() + eventName.slice(1)
-                        EventBus.subscribeEventEntity<PointerEventData>(eventName, (this as any)['gameObject'], (this as any)[methodName].bind(this));
+                        (this as any).registerEvents.push(eventName);
                     }
                 }
             }

@@ -1,5 +1,5 @@
 import {BaseEntity} from './entitys/BaseEntity';
-import {BaseComponent} from './components/BaseComponent';
+import {MonoBehaviour} from './components/MonoBehaviour';
 import {BaseSystem} from './systems/BaseSystem';
 import {BasePool} from './pools/BasePool';
 import {NumberPool} from './pools/NumberPool';
@@ -10,4 +10,4 @@ import  { Input } from './helpers/InputHelper';
 import  * as InputUtils from './helpers/InputHelper';
 
 
-export {BaseEntity, BaseComponent, BaseSystem, BasePool, NumberPool, TimePool, SpatialHashingInterest, ItemInfo, EventBus, Input, InputUtils};
+export {BaseEntity, MonoBehaviour, BaseSystem, BasePool, NumberPool, TimePool, SpatialHashingInterest, ItemInfo, EventBus, Input, InputUtils};
