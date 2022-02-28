@@ -4,7 +4,7 @@ import { PointerEventData } from '../helpers/InputHelper';
 import { EventBus } from '../systems/EventBus';
 
 export class MonoBehaviour extends EventDispatcher {
-
+	public static mType:string;
 	protected gameObject: BaseEntity;
 	protected registerEvents: string[] = [];
 	protected registeredCallbacks:any[] = [];
@@ -12,9 +12,14 @@ export class MonoBehaviour extends EventDispatcher {
 		super();
 	}
 
+	protected Start(){
+
+	}
+
 	onAddedComponent(entity: BaseEntity) {
 		this.gameObject = entity;
 		this.subcscribeEvents();
+		this.Start();
 	}
 
 	protected subcscribeEvents() {
@@ -40,6 +45,10 @@ export class MonoBehaviour extends EventDispatcher {
 
 	doUpdate(deltaTime: number) {
 
+	}
+
+	protected GetChild(index:number){
+		return this.gameObject.children[index] as BaseEntity;
 	}
 
 }

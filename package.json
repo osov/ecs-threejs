@@ -9,11 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "three": "^0.136.0"
+    "three": "^0.138.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.8",
-    "@types/three": "^0.136.1"
+    "@types/three": "^0.137.0"
   },
 	"browser": {
 		"fs": false

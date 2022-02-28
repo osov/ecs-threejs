@@ -56,7 +56,6 @@ export class EventBus {
     public static subscribeEventEntity<T>(type: string, entity: BaseEntity, cb: CallbackHandler<T>) {
         this.subscribeEvent(this.getEntityPrefixEvent(type, entity), cb);
         this.dispatchEvent<IEntityEventSubscribed>('entitySubscribeEvent', { type, entity });
-        console.log(type, entity, cb);
         return true;
     }
 

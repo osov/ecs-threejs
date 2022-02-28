@@ -2,12 +2,13 @@ import {Vector2, Vector3, Object3D} from 'three';
 import {MonoBehaviour} from '../components/MonoBehaviour';
 
 export interface WrapConfig{
-	worldWrap:boolean;
-	worldSize:Vector2;
+	worldWrap?:boolean;
+	worldSize?:Vector2;
 }
 
 export class BaseEntity extends Object3D{
-
+	
+	public prefabName:string;
 	public wrapConfig:WrapConfig;
 	protected components:{[k:string]:MonoBehaviour} = {};
 	protected velocity:Vector2 = new Vector2();
