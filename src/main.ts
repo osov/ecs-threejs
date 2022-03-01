@@ -8,6 +8,6 @@ import { ItemInfo, SpatialHashingInterest } from './systems/SpatialHashingIntere
 import { EventBus } from './systems/EventBus';
 import  { Input } from './helpers/InputHelper';
 import  * as InputUtils from './helpers/InputHelper';
+import  * as BaseTypes from './core/BaseTypes';
 
-
-export {BaseEntity, MonoBehaviour, BaseSystem, BasePool, NumberPool, TimePool, SpatialHashingInterest, ItemInfo, EventBus, Input, InputUtils};
+export {BaseEntity, MonoBehaviour, BaseSystem, BasePool, NumberPool, TimePool, SpatialHashingInterest, ItemInfo, EventBus, Input, InputUtils, BaseTypes};

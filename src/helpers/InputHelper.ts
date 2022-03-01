@@ -32,6 +32,11 @@ export interface IDragHandler {
 	OnDrag(pointerEventData: PointerEventData): void;
 }
 
+export interface KeyboardDown{
+    keyCode:number;
+    key:string;
+}
+
 export class Input {
     private _touches: { [key: string]: TouchData } = {};
     private _mousePos:Vector2 = new Vector2();
@@ -49,7 +54,9 @@ export class Input {
         document.addEventListener('pointermove', this.onPointerMove.bind(this), false);
         document.addEventListener('pointerup', this.onPointerUp.bind(this), false);
         document.addEventListener('pointercancel', this.onPointerCancel.bind(this), false);
+        document.addEventListener('keydown', this.onKeyDown.bind(this), false);
         window.addEventListener('resize', this.onResize.bind(this), false);
+
     }
 
     init(el: HTMLElement) {
@@ -57,6 +64,11 @@ export class Input {
         el.addEventListener('webkitfullscreenchange', this.onFullsSreenChange.bind(this));
         el.addEventListener('mozfullscreenchange', this.onFullsSreenChange.bind(this));
         el.addEventListener('fullscreenchange', this.onFullsSreenChange.bind(this));
+    }
+
+    protected onKeyDown(e:KeyboardEvent)
+    {
+        EventBus.dispatchEvent<KeyboardDown>('onKeyboardDown', {key: e.key, keyCode:e.keyCode});
     }
 
     protected onFullsSreenChange(event: Event) {
