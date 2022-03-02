@@ -6,7 +6,7 @@ export interface WrapConfig{
 	worldSize?:Vector2;
 }
 
-export class BaseEntity extends Object3D{
+export class BaseEntity extends MonoBehaviour{
 	
 	public prefabName:string;
 	public wrapConfig:WrapConfig;
@@ -18,6 +18,7 @@ export class BaseEntity extends Object3D{
 	constructor()
 	{
 		super();
+		this.gameObject = this;
 	}
 
 	onAdd(wrapConfig:WrapConfig)
@@ -122,6 +123,11 @@ export class BaseEntity extends Object3D{
 		this.scale.setScalar(scale);
 	}
 
+	setScaleXY(x:number, y:number)
+	{
+		this.scale.set(x,y, this.scale.z);
+	}
+
 	setRenderOrder(index:number)
 	{
 		this.renderOrder = index;
@@ -156,30 +162,7 @@ export class BaseEntity extends Object3D{
 		this.updateComponents(deltaTime);
 	}
 
-	GetChild(index:number)
-	{
-		if (this.children.length == 0)
-		{
-			console.error("Нету дочерних элементов:", index);
-			return this;
-		}
-		if (this.children.length - 1 < index)
-		{
-			console.error("Нету индекса дочернего элемента:", index);
-			return this;
-		}
-		var ch = this.children[index];
-		return ch as BaseEntity;
-	}
-
-	GetComponent<T>(name:string = '')
-	{
-		// для интерфейсов типа SpriteRenderer и т.п.
-		if (this.userData[name] === undefined)
-			return this as unknown as T;
-		// для хранения данных
-		return this.userData[name] as T;
-	}
+	
 
 	destroy()
 	{

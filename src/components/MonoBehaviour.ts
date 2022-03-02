@@ -1,18 +1,20 @@
-import { EventDispatcher } from 'three';
+import { EventDispatcher, Object3D } from 'three';
 import { BaseEntity } from '../entitys/BaseEntity';
 import { PointerEventData } from '../helpers/InputHelper';
 import { EventBus } from '../systems/EventBus';
 
-export class MonoBehaviour extends EventDispatcher {
-	public static mType:string;
+export class MonoBehaviour extends Object3D {
+	public static mType: string;
 	protected gameObject: BaseEntity;
 	protected registerEvents: string[] = [];
-	protected registeredCallbacks:any[] = [];
+	protected registeredCallbacks: any[] = [];
+
+
 	constructor() {
 		super();
 	}
 
-	protected Start(){
+	protected Start() {
 
 	}
 
@@ -31,6 +33,7 @@ export class MonoBehaviour extends EventDispatcher {
 			let cb = (this as any)[methodName].bind(this);
 			this.registeredCallbacks.push(cb);
 			EventBus.subscribeEventEntity<PointerEventData>(eventName, this.gameObject, cb);
+			//console.log(eventName, this.gameObject)
 		}
 
 	}
@@ -47,8 +50,25 @@ export class MonoBehaviour extends EventDispatcher {
 
 	}
 
-	protected GetChild(index:number){
-		return this.gameObject.children[index] as BaseEntity;
+	GetChild(index: number) {
+		if (this.children.length == 0) {
+			console.error("Нету дочерних элементов:", index);
+			return this as unknown as BaseEntity;
+		}
+		if (this.children.length - 1 < index) {
+			console.error("Нету индекса дочернего элемента:", index);
+			return this as unknown as BaseEntity;
+		}
+		var ch = this.children[index];
+		return ch as BaseEntity;
+	}
+
+	GetComponent<T>(name: string = '') {
+		// для интерфейсов типа SpriteRenderer и т.п.
+		if (this.gameObject.userData[name] === undefined)
+			return this.gameObject as unknown as T;
+		// для хранения данных
+		return this.gameObject.userData[name] as T;
 	}
 
 }

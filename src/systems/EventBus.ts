@@ -36,7 +36,7 @@ export class EventBus {
     }
 
     public static getEntityPrefixEvent(type: string, entity: BaseEntity) {
-        return type + '-' + entity.idEntity;
+        return type + '-' + entity.id; // todo убрал idEntity т.к. если сущность берется с пула, то еще не имеет idEntity и события не будет.
     }
 
     public static dispatchEventEntity<T>(type: string, entity: BaseEntity, args: T) {

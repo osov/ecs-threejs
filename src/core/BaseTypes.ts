@@ -3,14 +3,19 @@ export type float = number & floatMarker;
 
 export interface Text{
     setText(text:string):void;
+    setColor(color:string):void;
     text:string;
 }
 
 export interface ImageSet{
-    setImage(index:number):void;
+    SetImageIndex(index:number):void;
 }
 
 export interface SpriteRenderer{
+    setColor(color:string):void;
+}
+
+export interface Image{
     setColor(color:string):void;
 }
 

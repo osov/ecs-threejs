@@ -9,5 +9,8 @@ import { EventBus } from './systems/EventBus';
 import  { Input } from './helpers/InputHelper';
 import  * as InputUtils from './helpers/InputHelper';
 import  * as BaseTypes from './core/BaseTypes';
+import { TextureAtlas } from './helpers/TextureAtlas';
+import { Screen } from './helpers/Screen';
+import { Random } from './helpers/Random';
 
-export {BaseEntity, MonoBehaviour, BaseSystem, BasePool, NumberPool, TimePool, SpatialHashingInterest, ItemInfo, EventBus, Input, InputUtils, BaseTypes};
+export {BaseEntity, MonoBehaviour, BaseSystem, BasePool, NumberPool, TimePool, SpatialHashingInterest, ItemInfo, EventBus, Input, InputUtils, TextureAtlas, Screen, Random, BaseTypes};
