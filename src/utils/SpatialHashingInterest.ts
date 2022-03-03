@@ -1,5 +1,5 @@
 import { Vector2 } from 'three';
-import {BaseSystem} from './BaseSystem';
+import {BaseSystem} from '../systems/BaseSystem';
 import {Grid2D} from './Grid2D';
 
 export interface ItemInfo{

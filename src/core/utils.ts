@@ -34,7 +34,7 @@ export function shuffleArray(array:any[])
 	return array;
 }
 
-export function mtRand(min:number, max:number)
+export function mtRandInt(min:number, max:number)
 {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }

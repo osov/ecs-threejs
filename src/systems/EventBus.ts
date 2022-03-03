@@ -1,11 +1,12 @@
+import { MonoBehaviour } from "../components/MonoBehaviour";
 import { BaseEntity } from "../entitys/BaseEntity";
-import { PointerEventData } from "../helpers/InputHelper";
+import { PointerEventData } from "../unityTypes/Input";
 
 type CallbackHandler<T> = (args: T) => void;
 
 export interface IEntityEventSubscribed {
     type: string;
-    entity: BaseEntity;
+    entity: MonoBehaviour;
 }
 
 export class EventBus {
@@ -35,11 +36,11 @@ export class EventBus {
         return true;
     }
 
-    public static getEntityPrefixEvent(type: string, entity: BaseEntity) {
+    public static getEntityPrefixEvent(type: string, entity: MonoBehaviour) {
         return type + '-' + entity.id; // todo убрал idEntity т.к. если сущность берется с пула, то еще не имеет idEntity и события не будет.
     }
 
-    public static dispatchEventEntity<T>(type: string, entity: BaseEntity, args: T) {
+    public static dispatchEventEntity<T>(type: string, entity: MonoBehaviour, args: T) {
         return this.dispatchEvent(this.getEntityPrefixEvent(type, entity), args);
     }
 
@@ -53,7 +54,7 @@ export class EventBus {
         return true;
     }
 
-    public static subscribeEventEntity<T>(type: string, entity: BaseEntity, cb: CallbackHandler<T>) {
+    public static subscribeEventEntity<T>(type: string, entity: MonoBehaviour, cb: CallbackHandler<T>) {
         this.subscribeEvent(this.getEntityPrefixEvent(type, entity), cb);
         this.dispatchEvent<IEntityEventSubscribed>('entitySubscribeEvent', { type, entity });
         return true;
@@ -75,7 +76,7 @@ export class EventBus {
         return false;
     }
 
-    public static unSubscribeEventEntity<T>(type: string, entity: BaseEntity, cb: CallbackHandler<T>) {
+    public static unSubscribeEventEntity<T>(type: string, entity: MonoBehaviour, cb: CallbackHandler<T>) {
         return this.unSubscribeEvent(this.getEntityPrefixEvent(type, entity), cb);
     }
 

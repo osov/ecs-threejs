@@ -1,5 +1,6 @@
 import { EventBus } from "../systems/EventBus";
 import { Vector2 } from "three";
+import {Screen} from "./Screen";
 
 export enum TouchPhase {
     Began = 0, // A finger touched the screen.
@@ -40,42 +41,37 @@ export interface KeyboardDown{
 export class Input {
     private _touches: { [key: string]: TouchData } = {};
     private _mousePos:Vector2 = new Vector2();
-    private container:HTMLElement;
-    private static instance: Input;
+    public static instance: Input;
 
-    public static getInstance(): Input {
-        if (!Input.instance)
-            Input.instance = new Input();
-        return Input.instance;
-    }
-
-    private constructor() {
+    public constructor() {
+        Input.instance = this;
         document.addEventListener('pointerdown', this.onPointerDown.bind(this), false);
         document.addEventListener('pointermove', this.onPointerMove.bind(this), false);
         document.addEventListener('pointerup', this.onPointerUp.bind(this), false);
         document.addEventListener('pointercancel', this.onPointerCancel.bind(this), false);
         document.addEventListener('keydown', this.onKeyDown.bind(this), false);
         window.addEventListener('resize', this.onResize.bind(this), false);
-
+        var viewer = document.getElementById("viewer");
+        if (viewer != null)
+            this.initFullScreenEvents(viewer);
     }
 
-    init(el: HTMLElement) {
-        this.container = el;
+    private initFullScreenEvents(el: HTMLElement) {
         el.addEventListener('webkitfullscreenchange', this.onFullsSreenChange.bind(this));
         el.addEventListener('mozfullscreenchange', this.onFullsSreenChange.bind(this));
         el.addEventListener('fullscreenchange', this.onFullsSreenChange.bind(this));
     }
 
-    protected onKeyDown(e:KeyboardEvent)
+    private onKeyDown(e:KeyboardEvent)
     {
         EventBus.dispatchEvent<KeyboardDown>('onKeyboardDown', {key: e.key, keyCode:e.keyCode});
     }
 
-    protected onFullsSreenChange(event: Event) {
+    private onFullsSreenChange(event: Event) {
         EventBus.dispatchEvent('onFullsSreenChange', {});
     }
 
-    protected onResize(event: UIEvent) {
+    private onResize(event: UIEvent) {
         EventBus.dispatchEvent('onResize', {});
     }
 
@@ -116,23 +112,18 @@ export class Input {
         delete this._touches[event.pointerId];
     }
 
-    protected setPointers(x = 0, y = 0)
+    private setPointers(x = 0, y = 0)
 	{
-        y = Input.ScreenSize.y - y;
+        y = Screen.height - y;
 		this._mousePos.set(x, y);
 	}
 
     public static get touchCount(): number {
-        return Object.keys(Input.getInstance()._touches).length;
+        return Object.keys(Input.instance._touches).length;
     }
 
-    public static get ScreenSize():Vector2{
-        let instance = Input.getInstance();
-        return new Vector2(instance.container.clientWidth, instance.container.clientHeight);
-    }
-
-    public static get mousePos():Vector2{
-        return this.getInstance()._mousePos;
+    public static get mousePosition():Vector2{
+        return Input.instance._mousePos;
     }
 
     public static GetTouch(index: number) {

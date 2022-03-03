@@ -1,0 +1,47 @@
+export class SystemLanguage{
+
+    public static Afrikaans = 0;
+    public static Arabic = 1;
+    public static Basque = 2;
+    public static Belarusian = 3;
+    public static Bulgarian = 4;
+    public static Catalan = 5;
+    public static Chinese = 6;
+    public static Czech = 7;
+    public static Danish = 8;
+    public static Dutch = 9;
+    public static English = 10;
+    public static Estonian = 11;
+    public static Faroese = 12;
+    public static Finnish = 13;
+    public static French = 14;
+    public static German = 15;
+    public static Greek = 16;
+    public static Hebrew = 17;
+    public static Hugarian = 18;
+    public static Hungarian = 18;
+    public static Icelandic = 19;
+    public static Indonesian = 20;
+    public static Italian = 21;
+    public static Japanese = 22;
+    public static Korean = 23;
+    public static Latvian = 24;
+    public static Lithuanian = 25;
+    public static Norwegian = 26;
+    public static Polish = 27;
+    public static Portuguese = 28;
+    public static Romanian = 29;
+    public static Russian = 30;
+    public static SerboCroatian = 31;
+    public static Slovak = 32;
+    public static Slovenian = 33;
+    public static Spanish = 34;
+    public static Swedish = 35;
+    public static Thai = 36;
+    public static Turkish = 37;
+    public static Ukrainian = 38;
+    public static Vietnamese = 39;
+    public static ChineseSimplified = 40;
+    public static ChineseTraditional = 41;
+    public static Unknown = 42;
+}

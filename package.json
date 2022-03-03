@@ -9,13 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "three": "^0.138.0"
+    "three": "^0.138.0",
+    "troika-three-text": "^0.45.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.8",
     "@types/three": "^0.137.0"
   },
-	"browser": {
-		"fs": false
-	}
+  "browser": {
+    "fs": false
+  }
 }

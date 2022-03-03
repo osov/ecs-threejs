@@ -1,29 +1,43 @@
-import { EventDispatcher, Object3D } from 'three';
+import { Object3D } from 'three';
 import { BaseEntity } from '../entitys/BaseEntity';
-import { PointerEventData } from '../helpers/InputHelper';
+import { PointerEventData } from '../unityTypes/Input';
 import { EventBus } from '../systems/EventBus';
 
 export class MonoBehaviour extends Object3D {
-	public static mType: string;
-	protected gameObject: BaseEntity;
+	public gameObject: MonoBehaviour; // удобнее хранить именно 
 	protected registerEvents: string[] = [];
 	protected registeredCallbacks: any[] = [];
 
-
 	constructor() {
 		super();
+	}
+
+	protected Awake() {
+
 	}
 
 	protected Start() {
 
 	}
 
+	
+	// текущий объект - компонент, инициализируем его
 	onAddedComponent(entity: BaseEntity) {
 		this.gameObject = entity;
 		this.subcscribeEvents();
+		this.Awake();
 		this.Start();
 	}
 
+	onRemoveComponent() {
+		for (let i = 0; i < this.registeredCallbacks.length; i++) {
+			let eventName = this.registerEvents[i];
+			let cb = this.registeredCallbacks[i];
+			EventBus.unSubscribeEventEntity<PointerEventData>(eventName, this.gameObject, cb);
+		}
+	}
+
+	// вызываем подпись на события
 	protected subcscribeEvents() {
 		if (this.registerEvents.length == 0)
 			return;
@@ -38,31 +52,12 @@ export class MonoBehaviour extends Object3D {
 
 	}
 
-	onRemoveComponent() {
-		for (let i = 0; i < this.registeredCallbacks.length; i++) {
-			let eventName = this.registerEvents[i];
-			let cb = this.registeredCallbacks[i];
-			EventBus.unSubscribeEventEntity<PointerEventData>(eventName, this.gameObject, cb);
-		}
+	// предполагается что в наследуемых компонентах этот код есть, удобно при написании своих компонентов
+	doUpdate(deltaTime:number)
+	{
 	}
 
-	doUpdate(deltaTime: number) {
-
-	}
-
-	GetChild(index: number) {
-		if (this.children.length == 0) {
-			console.error("Нету дочерних элементов:", index);
-			return this as unknown as BaseEntity;
-		}
-		if (this.children.length - 1 < index) {
-			console.error("Нету индекса дочернего элемента:", index);
-			return this as unknown as BaseEntity;
-		}
-		var ch = this.children[index];
-		return ch as BaseEntity;
-	}
-
+	// получить компонент или считать только свойства
 	GetComponent<T>(name: string = '') {
 		// для интерфейсов типа SpriteRenderer и т.п.
 		if (this.gameObject.userData[name] === undefined)

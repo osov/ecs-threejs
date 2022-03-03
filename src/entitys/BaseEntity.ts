@@ -1,15 +1,9 @@
 import {Vector2, Vector3, Object3D} from 'three';
 import {MonoBehaviour} from '../components/MonoBehaviour';
 
-export interface WrapConfig{
-	worldWrap?:boolean;
-	worldSize?:Vector2;
-}
-
 export class BaseEntity extends MonoBehaviour{
 	
-	public prefabName:string;
-	public wrapConfig:WrapConfig;
+	public prefabName:string; // имя образца
 	protected components:{[k:string]:MonoBehaviour} = {};
 	protected velocity:Vector2 = new Vector2();
 	public idEntity:number = -1;
@@ -21,13 +15,14 @@ export class BaseEntity extends MonoBehaviour{
 		this.gameObject = this;
 	}
 
-	onAdd(wrapConfig:WrapConfig)
+	// До добавления к родителю
+	onBeforeAdd()
 	{
-		this.wrapConfig = wrapConfig;
 		this.addTime = Date.now();
 	}
 
-	onAdded()
+	// после добавления
+	onAfterAdd()
 	{
 
 	}
@@ -45,11 +40,13 @@ export class BaseEntity extends MonoBehaviour{
 		this.components = {};
 	}
 
+	// добавить этот объект к родителю
 	addToParent(parent:Object3D)
 	{
 		parent.add(this);
 	}
 
+	// удалить объект от родителя
 	removeFromParent()
 	{
 		return super.removeFromParent();
@@ -162,11 +159,23 @@ export class BaseEntity extends MonoBehaviour{
 		this.updateComponents(deltaTime);
 	}
 
-	
+	// получить дочерний элемент
+	GetChild(index: number) {
+		if (this.children.length == 0) {
+			console.error("Нету дочерних элементов:", index);
+			return this as unknown as BaseEntity;
+		}
+		if (this.children.length - 1 < index) {
+			console.error("Нету индекса дочернего элемента:", index);
+			return this as unknown as BaseEntity;
+		}
+		var ch = this.children[index];
+		return ch as BaseEntity;
+	}
 
 	destroy()
 	{
-
+		
 	}
 
 

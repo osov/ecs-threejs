@@ -1,5 +1,6 @@
-interface floatMarker{isFloat?:true;}
-export type float = number & floatMarker;
+import { BaseEntity } from "../entitys/BaseEntity";
+
+export type GameObject = BaseEntity & {fakeMarker?:boolean};
 
 export interface Text{
     setText(text:string):void;
@@ -19,9 +20,6 @@ export interface Image{
     setColor(color:string):void;
 }
 
-export function noTranslit() {
-    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {};
-}
 
 export class JsonUtility{
 
