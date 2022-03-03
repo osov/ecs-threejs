@@ -1,5 +1,6 @@
 import {Vector2, Vector3, Object3D} from 'three';
 import {MonoBehaviour} from '../components/MonoBehaviour';
+import { GameObject } from '../unityTypes/unityInterfaces';
 
 export class BaseEntity extends MonoBehaviour{
 	
@@ -163,14 +164,14 @@ export class BaseEntity extends MonoBehaviour{
 	GetChild(index: number) {
 		if (this.children.length == 0) {
 			console.error("Нету дочерних элементов:", index);
-			return this as unknown as BaseEntity;
+			return this as GameObject;
 		}
 		if (this.children.length - 1 < index) {
 			console.error("Нету индекса дочернего элемента:", index);
-			return this as unknown as BaseEntity;
+			return this as GameObject;
 		}
 		var ch = this.children[index];
-		return ch as BaseEntity;
+		return ch as GameObject;
 	}
 
 	destroy()

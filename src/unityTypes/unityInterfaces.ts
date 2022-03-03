@@ -1,6 +1,7 @@
 import { BaseEntity } from "../entitys/BaseEntity";
+import { MonoBehaviour } from "../main";
 
-export type GameObject = BaseEntity & {fakeMarker?:boolean};
+export type GameObject = MonoBehaviour & {fakeMarker?:boolean};
 
 export interface Text{
     setText(text:string):void;
