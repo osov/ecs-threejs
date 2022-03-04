@@ -1,3 +1,4 @@
+import { Vector2, Vector3 } from "three";
 import { BaseEntity } from "../entitys/BaseEntity";
 import { MonoBehaviour } from "../main";
 
@@ -7,6 +8,12 @@ export interface Text{
     setText(text:string):void;
     setColor(color:string):void;
     text:string;
+}
+
+export interface RectTransform{
+    setAnchoredPosition(pos:Vector2):void;
+    DOAnchorPos(pos:Vector2, time:number):void;
+    DOScale(pos:Vector3, time:number):void;
 }
 
 export interface ImageSet{
