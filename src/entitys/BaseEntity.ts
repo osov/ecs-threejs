@@ -73,7 +73,7 @@ export class BaseEntity extends MonoBehaviour{
 
 	getPosition()
 	{
-		return this.position;
+		return new Vector3(this.position.x, this.position.y, this.position.z);
 	}
 
 	get2dPosition()
